@@ -73,13 +73,13 @@ $border-radius-full: 9999px;
 
 .task-list {
   display: flex;
-  min-height: 100vh;
   box-sizing: border-box;
   flex-direction: column;
 }
 
 .task-list-container {
   display: flex;
+  height: calc(100% - 80px);
   width: 100%;
   flex-direction: column;
   list-style: none;
@@ -93,7 +93,7 @@ $border-radius-full: 9999px;
   cursor: pointer;
   
   &:hover {
-    background: $color-background;
+    background-color: #e1eaf3;
   }
   
   &:last-child {

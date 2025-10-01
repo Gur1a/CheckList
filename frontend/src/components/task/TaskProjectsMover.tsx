@@ -24,7 +24,9 @@ export const TaskProjectMover: React.FC<TaskProjectMoverProps> = ({taskId, onClo
     const handleProjectMove = async (taskId: string, projectId: string) => {
         try {
             console.log('移动任务到项目:', taskId, projectId);
-            await updateTask(taskId, { project: projectId });
+            const projectName = userProjects?.find(project => project.id === projectId)?.name;
+            await updateTask(taskId, { project: projectId, projectInfo: {name: projectName || ''} } as UpdateTaskData);
+            
             onClose();
         } catch (error) {
             console.error('移动任务到项目失败:', error);

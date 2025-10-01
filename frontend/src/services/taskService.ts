@@ -1,4 +1,4 @@
-import { Task, TaskStatus, TaskPriority, ApiResponse, PaginationParams, PaginatedResponse, Tag } from '../../../shared/types';
+import { Task, TaskStatus, TaskPriority, ApiResponse, PaginationParams, PaginatedResponse, Tag, Project} from '../../../shared/types';
 
 import apiClient from '../utils/apiClient';
 import { API_ENDPOINTS, buildURLWithParams } from '../utils/apiEndpoints';
@@ -31,6 +31,7 @@ export interface UpdateTaskData {
   assignee?: string;
   boardId?: string;
   project?: string;
+  projectInfo?: Project;
 }
 
 // 任务查询过滤器

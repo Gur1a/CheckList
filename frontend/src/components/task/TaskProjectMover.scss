@@ -53,6 +53,9 @@
     cursor: pointer;
     transition: background-color 0.2s ease;
     border-left: 4px solid transparent;
+    &:hover {
+        background-color: #f5f5f5;
+    }
 }
 
 

@@ -169,7 +169,7 @@ const TaskDetail: React.FC = () => {
         </div>
         {/* 任务描述 */}
         { (
-          <div className="task-description-field" onDoubleClick={() => setIsEditingDescription(true)}>
+          <div className="task-description-field" onClick={() => setIsEditingDescription(true)}>
 
             {
               isEditingDescription ? (
@@ -181,9 +181,16 @@ const TaskDetail: React.FC = () => {
                 />
               )
               : (
+                description.length > 0 ? (
                 <p className="task-description-text">
                   {description}
                 </p>
+                ) : (
+                <p className="task-description-text-tip">
+                  点击编辑任务描述
+                </p>
+                 )
+                
               )
             }
             

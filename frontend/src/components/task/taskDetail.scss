@@ -103,7 +103,11 @@
   line-height: 1.6;
   color: #374151;
   white-space: pre-wrap;
+  &-tip{
+     color: #9ca3af;
+  }
 }
+
 
 .task-description-textarea { 
   width: 100%;
