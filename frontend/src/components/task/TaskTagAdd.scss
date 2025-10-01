@@ -1,0 +1,148 @@
+.task-tag-add {
+  position: absolute;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  width: 300px;
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.tag-input-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+
+
+.search-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.tag-input {
+  width: 100%;
+  font-size: 20px;
+  outline: none;
+  border: none;
+}
+
+.tag-input:focus {
+  border-color: #4a6cf7;
+}
+
+.tags-list {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 16px;
+}
+
+.tags-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tags-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.tags-list::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.tags-list::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+.tag-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  cursor: pointer;
+  position: relative;
+}
+
+.tag-checkbox {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.tag-checkbox.selected {
+  background-color: #4a6cf7;
+  border-color: #4a6cf7;
+}
+
+.tag-name {
+  flex: 1;
+  font-size: 14px;
+  color: #333;
+  padding: 2px 0;
+}
+
+.tag-name.selected {
+  color: #4a6cf7;
+  font-weight: 500;
+}
+
+.check-mark {
+  color: #4a6cf7;
+  font-weight: bold;
+  position: absolute;
+  right: 0;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.action-buttons .cancel-btn, .action-buttons .confirm-btn {
+  flex: 1;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-buttons .cancel-btn {
+  background-color: #f5f5f5 ;
+  color: #666 ;
+}
+
+.action-buttons .cancel-btn:hover {
+  background-color: #e0e0e0 ;
+}
+
+.action-buttons .confirm-btn {
+  background-color: #4a6cf7;
+  color: white;
+}
+
+.action-buttons .confirm-btn:hover {
+  background-color: #3a5be7;
+}
+
+.task-tag-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}

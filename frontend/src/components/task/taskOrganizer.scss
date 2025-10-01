@@ -1,0 +1,365 @@
+/* TaskOrganizer 组件样式 */
+.task-organizer {
+  width: 100%;
+  display: flex;
+}
+
+/* 头部工具栏 */
+.task-organizer-header {
+  width: 100%;
+  padding: 5px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* 搜索区域 */
+.search-section {
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+
+/* 主要内容区域 */
+.task-organizer-body {
+  flex: 1;
+  padding: 1.5rem;
+  overflow: auto;
+  position: relative;
+}
+
+/* 加载状态 */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.loading-spinner {
+  padding: 1rem 2rem;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+/* 错误消息 */
+.error-message {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.error-message p {
+  flex: 1;
+  margin: 0;
+  color: #dc2626;
+  font-size: 0.875rem;
+}
+
+.retry-button {
+  padding: 0.375rem 0.75rem;
+  background: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* 任务添加区域 */
+.create-section {
+  flex: 1;
+  margin: 1rem 0;
+}
+
+/* 任务输入框包装器 */
+.create-task-input-wrapper {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 5px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.create-task-input-wrapper:focus-within {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* 左侧+号图标 */
+.create-task-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #6b7280;
+  border-radius: 0.375rem;
+  transition: all 0.2s;
+}
+
+.create-task-input-wrapper:focus-within .create-task-icon {
+  color: #3b82f6;
+}
+
+/* 任务输入框 */
+.create-input {
+  flex: 1;
+  padding: 5px;
+  border: none;
+  background: transparent;
+  font-size: 0.875rem;
+  outline: none;
+  color: #1f2937;
+}
+
+.create-input::placeholder {
+  color: #9ca3af;
+}
+
+
+/* 任务添加按钮 */
+.task-add-button {
+  padding: 0.5rem 1.5rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.task-add-button:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.task-add-button:active {
+  transform: translateY(0);
+}
+
+.task-add-button:focus {
+  outline: 2px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 2px;
+}
+
+.retry-button:hover {
+  background: #b91c1c;
+}
+
+/* 任务计数 */
+.task-count {
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #6b7280;
+}
+
+.empty-state h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+/* 列表视图容器（TaskList组件会导入自己的样式） */
+.list-view {
+  background: white;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* 网格视图 */
+.grid-view {
+  background: transparent;
+}
+
+.task-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.task-card {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s;
+}
+
+.task-card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.task-card-title {
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.task-card-description {
+  margin: 0 0 1rem 0;
+  font-size: 0.875rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.task-card-meta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* 状态和优先级标签 */
+.status, .priority {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+/* 状态样式 */
+.status.todo {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status.in_progress {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status.done {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status.archived {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* 优先级样式 */
+.priority.high {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.priority.medium {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.priority.low {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+/* 占位符视图 */
+.kanban-placeholder,
+.calendar-placeholder {
+  text-align: center;
+  padding: 3rem;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.kanban-placeholder h3,
+.calendar-placeholder h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.kanban-placeholder p,
+.calendar-placeholder p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .task-organizer-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .filter-section {
+    justify-content: space-between;
+  }
+  
+  .view-switcher {
+    justify-content: center;
+  }
+  
+  .task-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .task-organizer-body {
+    padding: 1rem;
+  }
+}

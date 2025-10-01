@@ -1,0 +1,18 @@
+@use '../../styles/mixins';
+
+.overlay{
+ @include overlay
+}
+
+.time-picker-card {
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+  max-height: 90vh;
+  overflow-y: auto;
+  z-index: 1001;
+  animation: slideIn 0.3s ease;
+}
+

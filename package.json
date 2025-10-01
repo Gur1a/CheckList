@@ -1,0 +1,27 @@
+{
+  "name": "todolist-system",
+  "version": "1.0.0",
+  "description": "一个功能完整的Todo List系统，支持项目分组、协作、离线等高级功能",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && npm run dev",
+    "client": "cd frontend && npm start",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "tsc --noEmit --watch",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && npm start",
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install"
+  },
+  "keywords": ["todo", "react", "nodejs", "task-management"],
+  "author": "bubble",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.2.2",
+    "@types/node": "^20.8.6",
+    "ts-node": "^10.9.1",
+    "nodemon": "^3.0.1"
+  }
+}

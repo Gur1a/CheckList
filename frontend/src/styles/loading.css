@@ -1,0 +1,36 @@
+/* 加载组件样式 */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  width: 100%;
+}
+
+.loading-spinner {
+  padding: 1rem 2rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  color: #6c757d;
+  font-size: 1rem;
+  border: 1px solid #e9ecef;
+}
+
+/* 可以添加旋转动画 */
+.loading-spinner::after {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  border: 2px solid #6c757d;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,30 @@
+/* 调整菜单项的整体高度 */
+.custom-menu .ant-menu-item,
+.custom-menu .ant-menu-submenu {
+  height: 50px !important;           /* 菜单项高度 */
+  line-height: 50px !important;      /* 垂直居中文本 */
+}
+
+.custom-sider {
+  background-color: #217cf4;
+  height: 100%;
+  display: flex; /* 使用flex布局 */
+  flex-direction: column; /* 垂直排列子元素 */
+}
+
+.custom-menu{
+    background-color: #f9f9f9;
+    flex: 1; /* 让菜单占据剩余空间 */
+    overflow-y: auto; /* 菜单内容超出时可滚动 */
+}
+
+/* 调整图标大小 */
+.custom-menu .anticon {
+  font-size: 25px !important;        /* 图标大小 */
+  margin-right: 8px;                 /* 图标与文字间距 */
+}
+
+/* 如果是 SubMenu，调整其标题中的图标 */
+.custom-menu .ant-menu-submenu-title .anticon {
+  font-size: 20px !important;
+}

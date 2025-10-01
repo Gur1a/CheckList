@@ -1,0 +1,46 @@
+/* 主布局样式 */
+.main-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+/* 主内容区域 */
+.main-content {
+  flex: 1;
+  margin-left: 260px; /* 侧边栏宽度 */
+  min-height: 100vh;
+  overflow-x: auto;
+  transition: margin-left 0.3s ease;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+  }
+  
+  .main-layout {
+    flex-direction: column;
+  }
+}
+
+/* 确保内容区域有足够的内边距 */
+.main-content > * {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* 页面容器的通用样式 */
+.page-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,301 @@
+/* Aside 侧边栏组件样式 */
+.aside {
+  width: 260px;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+/* 用户信息区域 */
+.aside-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.user-details {
+  flex: 1;
+  min-width: 0; /* 防止文本溢出 */
+}
+
+.username {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-email {
+  margin: 0;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 导航菜单 */
+.aside-nav {
+  flex: 1;
+  padding: 1rem 0;
+}
+
+.nav-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  margin: 0.25rem 0;
+}
+
+.nav-button {
+  width: 100%;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0.875rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  position: relative;
+}
+
+.nav-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  transform: translateX(4px);
+}
+
+.nav-button.active {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-weight: 600;
+}
+
+.nav-button.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: white;
+  border-radius: 0 2px 2px 0;
+}
+
+.nav-icon {
+  font-size: 1.25rem;
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.nav-label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 底部操作区域 */
+.aside-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.logout-button {
+  width: 100%;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  justify-content: center;
+}
+
+.logout-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: white;
+}
+
+.logout-button:active {
+  transform: translateY(1px);
+}
+
+.logout-icon {
+  font-size: 1rem;
+}
+
+.logout-label {
+  font-weight: 500;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .aside {
+    width: 100%;
+    height: auto;
+    position: static;
+    box-shadow: none;
+  }
+  
+  .aside-header {
+    padding: 1rem;
+  }
+  
+  .user-info {
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .nav-button {
+    padding: 1rem;
+    justify-content: center;
+  }
+  
+  .nav-label {
+    display: none;
+  }
+  
+  .nav-icon {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .aside {
+    width: 100%;
+  }
+  
+  .nav-menu {
+    display: flex;
+    justify-content: space-around;
+    padding: 0.5rem;
+  }
+  
+  .nav-item {
+    flex: 1;
+    margin: 0 0.25rem;
+  }
+  
+  .nav-button {
+    padding: 0.75rem 0.5rem;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+  }
+  
+  .nav-label {
+    display: block;
+    font-size: 0.625rem;
+  }
+  
+  .nav-icon {
+    font-size: 1.25rem;
+  }
+}
+
+/* 滚动条样式 */
+.aside::-webkit-scrollbar {
+  width: 4px;
+}
+
+.aside::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.aside::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+.aside::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* 动画效果 */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.aside {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+/* 焦点样式 */
+.nav-button:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: -2px;
+}
+
+.logout-button:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: -2px;
+}

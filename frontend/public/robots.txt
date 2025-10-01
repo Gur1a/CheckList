@@ -1,0 +1,3 @@
+# robots.txt for TodoList System
+User-agent: *
+Disallow:
