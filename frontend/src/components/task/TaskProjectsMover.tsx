@@ -8,18 +8,17 @@ import './TaskProjectMover.scss'
 import useAuth from '@/hooks/useAuth';
 
 interface TaskProjectMoverProps {
-    projects: Project[];
     taskId: string;
     onClose: () => void;
     onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
     style?: React.CSSProperties;
 }
 
-export const TaskProjectMover: React.FC<TaskProjectMoverProps> = ({ projects, taskId, onClose, onClick, style }) => {
+export const TaskProjectMover: React.FC<TaskProjectMoverProps> = ({taskId, onClose, onClick, style }) => {
     const { user } = useAuth();
-    const { updateTask } = useTask();
+    const { userProjects, updateTask } = useTask();
     const [inputValue, setInputValue] = useState('');
-    const [filterProjects, setFilterProjects] = useState<Project[]>(projects);
+    const [filteredProjects, setFilteredProjects] = useState<Project[]>();
 
     // 处理任务移动
     const handleProjectMove = async (taskId: string, projectId: string) => {
@@ -32,32 +31,21 @@ export const TaskProjectMover: React.FC<TaskProjectMoverProps> = ({ projects, ta
         }
     }
 
-    const handleProjectSearch = debounce(async (search: string) => {
-        try {
-            // 如果用户未登录，不执行搜索
-            if (!user?.id) {
-                setFilterProjects([]);
-                return;
-            }
+    // 处理搜索
+    const handleProjectSearch = debounce((value: string) => {
+        if (!userProjects) return;
 
-            // 如果搜索内容为空，显示所有项目
-            if (!search.trim()) {
-                setFilterProjects(projects);
-                return;
-            }
-            
+        const newFilteredProjects = userProjects.filter(project =>
+            project.name.toLowerCase().includes(value.toLowerCase())
+        );
 
-            // 根据搜索内容过滤项目
-            let filteredProjects = projects.filter(project => 
-                project.name.includes(search)
-            );
-            if(filteredProjects.length > 0) {console.log("filteredProjects", filteredProjects)}
-            setFilterProjects(filteredProjects);
-        } catch (error) {
-            console.error('搜索项目失败:', error);
-            setFilterProjects([]);
-        }
+        setFilteredProjects(newFilteredProjects);
     }, 200);
+
+
+    useEffect(() => {
+        setFilteredProjects(userProjects)
+    }, [userProjects])
 
     return (
         <div className="task-project-mover" style={style} onClick={onClick}>
@@ -75,9 +63,9 @@ export const TaskProjectMover: React.FC<TaskProjectMoverProps> = ({ projects, ta
                 />
             </div>
             
-            {filterProjects.length > 0 && (
+            {filteredProjects && filteredProjects.length > 0 && (
                 <div className="project-list">
-                    {filterProjects.map(project => (
+                    {filteredProjects.map(project => (
                         <div 
                             key={project.id} 
                             className="project-item"

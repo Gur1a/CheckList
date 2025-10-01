@@ -5,7 +5,6 @@ import { useTask } from "../../hooks/useTask";
 import { handleDateFilter } from "@/utils/generalFunction";
 import { format } from "date-fns";
 import { zhCN } from "date-fns/locale";
-import { formatTimeToString } from "@/utils/generalFunction";
 import "./taskList.scss";
 import moreIcon from "@/assets/icons/more.png";
 
@@ -22,12 +21,6 @@ const TaskList: React.FC = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [position, setPosition] = useState({ left: 0, top: 0 });
   const [FilterTasks, setFilterTasks] = useState<Task[]>(tasks);
-  const [allTasks, setAllTasks] = useState<Task[]>(tasks);
-
-  // 过滤任务
-  const UpdateCurrentTask = (taskId: string, updatedTask: Task) => {
-
-  };
 
   // 处理任务选择
   const handleSelectTask = (task: Task) => {
@@ -151,6 +144,11 @@ const TaskList: React.FC = () => {
                   </span>
 
                 )}
+                {task.projectInfo.name &&(
+                  <span className="task-project">
+                    {task.projectInfo.name}
+                  </span>
+                )}
                 {task.dueDate && (
                   <span className="task-time">
                     {formatTime(new Date(task.dueDate).toDateString())}
@@ -171,7 +169,7 @@ const TaskList: React.FC = () => {
                   <img src={moreIcon} />
                 </button>
               </div>
-
+           
               {isEdit && task.id === currentTask?.id && (
                 <TaskEditor
                   leftPos={position.left}

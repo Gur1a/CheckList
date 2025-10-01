@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { UpdateTaskData } from '@/services/taskService';
 import { TagService } from '@/services/tagService';
 import { Project } from '../../../../shared';
 import { TaskPriority, Tag } from '../../../../shared';
@@ -7,7 +6,8 @@ import {TaskTagAdd} from './TaskTagAdd';
 import { TaskProjectMover } from './TaskProjectsMover';
 import './TaskEditor.scss';
 import { useTask } from '../../hooks/useTask';
-import { useAuth } from '../../hooks/useAuth';
+import { Dropdown } from 'antd';
+
 
 // 导入图片
 import todayIcon from '@/assets/icons/today.png';
@@ -21,7 +21,6 @@ import noneIcon from '@/assets/icons/none.png';
 import tagIcon from '@/assets/icons/tag.png';
 import deleteIcon from '@/assets/icons/delete.png';
 import moveIcon from '@/assets/icons/move.png';
-import ProjectService from '@/services/projectService';
 
 interface TaskEditorProps {
     leftPos: number;
@@ -166,6 +165,10 @@ const TaskEditor: React.FC<TaskEditorProps> = ({
     }, [updateTask, taskId]);
 
     return (
+        <Dropdown
+            placement="bottom"
+            trigger={["click"]}
+        >
         <div className="task-editor-overlay" onClick={handleOverlayClick}>
             <div className="task-editor" onClick={handleEditorClick} style={{ left: leftPos, top: topPos }}>
                 <h3 className='task-editor-title'>日期</h3>
@@ -276,7 +279,6 @@ const TaskEditor: React.FC<TaskEditorProps> = ({
                             }}
                         > 
                             <TaskProjectMover
-                                projects={projects}
                                 taskId={taskId}
                                 onClick={(e) => e.stopPropagation()}
                                 onClose={() => setShowProjectMover(false)}
@@ -292,6 +294,9 @@ const TaskEditor: React.FC<TaskEditorProps> = ({
                 </div>
             </div>
         </div>
+
+        </Dropdown>
+       
     )
 }
 

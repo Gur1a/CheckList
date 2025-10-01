@@ -77,6 +77,7 @@ export interface Task {
   tags?: Tag[]; // 展示用标签名
   assignee?: string;
   project?: string;
+  projectInfo: Project;
   boardId?: string;
   order: number;
   createdBy: string;

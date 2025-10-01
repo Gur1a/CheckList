@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { catchAsync } from '../middleware/errorHandler';
 import { AppError } from '../middleware/errorHandler';
-import { log } from '../middleware/logger';
 import { TaskService } from '../services/TaskService';
 
 export class TaskController {

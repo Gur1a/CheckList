@@ -29,6 +29,11 @@ export class TaskRepository {
             attributes: [] // 不包含中间表的属性
           },
           attributes: ['id', 'name', 'color'] // 只包含需要的标签字段
+        },
+        {
+          model: Project,
+          as: 'projectInfo',
+          attributes: ['id', 'name', 'description', 'color', 'icon'] // 只包含需要的项目字段
         }
       ]
     });
@@ -127,6 +132,11 @@ export class TaskRepository {
             attributes: [] // 不包含中间表的属性
           },
           attributes: ['id', 'name', 'color'] // 只包含需要的标签字段
+        },
+        {
+          model: Project,
+          as: 'projectInfo',
+          attributes: ['id', 'name', 'description', 'color', 'icon'] // 只包含需要的项目字段
         }
       ]
     });
@@ -150,6 +160,11 @@ export class TaskRepository {
             attributes: [] // 不包含中间表的属性
           },
           attributes: ['id', 'name', 'color'] // 只包含需要的标签字段
+        },
+        {
+          model: Project,
+          as: 'projectInfo',
+          attributes: ['id', 'name', 'description', 'color', 'icon'] // 只包含需要的项目字段
         }
       ]
     });
@@ -407,6 +422,11 @@ export class TaskRepository {
             attributes: [] // 不包含中间表的属性
           },
           attributes: ['id', 'name', 'color'] // 只包含需要的标签字段
+        },
+        {
+          model: Project,
+          as: 'projectInfo',
+          attributes: ['id', 'name', 'description', 'color', 'icon'] // 只包含需要的项目字段
         }
       ]
     });
@@ -462,10 +482,13 @@ export class TaskRepository {
             attributes: [] // 不包含中间表的属性
           },
           attributes: ['id', 'name', 'color'] // 只包含需要的标签字段
+        },
+        {
+          model: Project,
+          as: 'projectInfo',
+          attributes: ['id', 'name', 'description', 'color', 'icon'] // 只包含需要的项目字段
         }
       ]
     });
   }
 }
-
-

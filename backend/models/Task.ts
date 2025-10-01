@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize, Optional } from 'sequelize';
-import { TaskPriority, TaskStatus } from '../types/shared';
+import { TaskPriority, TaskStatus, Project } from '../types/shared';
 
 // 子任务接口
 interface ISubtask {
@@ -101,6 +101,7 @@ class Task extends Model<TaskAttributes, TaskCreationAttributes> implements Task
   public project?: number;
   public board?: number;
   public tags?: string[]; // 展示用标签名
+  public projectInfo: Project;
   public order!: number;
   public subtasks!: ISubtask[];
   public attachments!: IAttachment[];

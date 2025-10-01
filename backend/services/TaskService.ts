@@ -1,5 +1,3 @@
-import { Op } from 'sequelize';
-import initializeModels from '../models/index';
 import { AppError } from '../middleware/errorHandler';
 import { log } from '../middleware/logger';
 import { TaskRepository } from '../repositories/TaskRepository';
