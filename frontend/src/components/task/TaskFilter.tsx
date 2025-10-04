@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import {TaskService} from '@/services/taskService';
 import { Layout, Menu, MenuProps} from 'antd';
 import { TagOutlined, MenuOutlined } from '@ant-design/icons';
+import {CreateModal}  from '@/components/task/CreateModal';
 import './TaskFilter.scss';
 import useTask from '@/hooks/useTask';
 import useAuth from '@/hooks/useAuth';
@@ -14,6 +15,9 @@ export const TaskFilter: React.FC = () => {
   const [selectedKey, setSelectedKey] = useState('all');
   const [projectsItems, setProjectsItems] = useState<MenuProps['items']>([]);
   const [tagItems, setTagItems] = useState<MenuProps['items']>([]);
+  const [createProjectModalOpen, setCreateProjectModalOpen] = useState(false);
+  const [createTagModalOpen, setCreateTagModalOpen] = useState(false);
+
   const {userProjects, userTags, setFilter, setProjects} = useTask();
   const {user} = useAuth();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -66,10 +70,23 @@ export const TaskFilter: React.FC = () => {
       label: '收集箱'
     },
   ]
-  const projectItem:MenuItem[] = [
+  const projectItem: MenuItem[] = [
     {
       key: 'project',
-      label: '清单',
+      label: (
+        <div className="menu-header">
+          <span>清单</span>
+          <button
+            className="add-button"
+            onClick={(e) =>{
+              e.stopPropagation()
+              setCreateProjectModalOpen(true)
+            }}
+          >
+            +
+          </button>
+        </div>
+      ),
       children: userProjects?.map((project) => ({
         icon: <MenuOutlined />,
         key: project.id,
@@ -80,7 +97,19 @@ export const TaskFilter: React.FC = () => {
   const tagItem:MenuItem[] = [
     {
       key: 'tag',
-      label: '标签',
+      label: (
+        <div className="menu-header">
+          <span>标签</span>
+          <button
+            className="add-button"
+            onClick={(e) => {
+              e.stopPropagation()
+              setCreateTagModalOpen(true)}}
+          >
+            +
+          </button>
+        </div>
+      ),
       children: userTags?.map((tag) => ({
         icon: <TagOutlined />,
         key: tag.id,
@@ -109,31 +138,45 @@ export const TaskFilter: React.FC = () => {
   }, [userTags]);
 
   return (
-    <div className="task-filter" ref={containerRef}>
-      <Sider className='task-list-view-sider'  width={'220px'}>
-        <Menu
-          className='custom-menu'
-          items={items}
-          onClick={handleClick}
-          selectedKeys={[selectedKey]}
-        >
-        </Menu>
-        <Menu
-          className='custom-submenu'
-          items={projectItem}
-          mode="inline"
-          onClick={handleClick}
-          selectedKeys={[selectedKey]}
-        />
-        <Menu
-          className='custom-submenu'
-          items={tagItem}
-          mode="inline"
-          onClick={handleClick}
-          selectedKeys={[selectedKey]}
-        />
-      </Sider>
-    </div>
+    <>
+      <div className="task-filter" ref={containerRef}>
+        <Sider className='task-list-view-sider'  width={'220px'}>
+          <Menu
+            className='custom-menu'
+            items={items}
+            onClick={handleClick}
+            selectedKeys={[selectedKey]}
+          >
+          </Menu>
+          <Menu
+            className='custom-submenu'
+            items={projectItem}
+            mode="inline"
+            onClick={handleClick}
+            selectedKeys={[selectedKey]}
+          />
+          <Menu
+            className='custom-submenu'
+            items={tagItem}
+            mode="inline"
+            onClick={handleClick}
+            selectedKeys={[selectedKey]}
+          />
+        </Sider>
+      </div>
+      <CreateModal
+        modalName="添加清单"
+        open={createProjectModalOpen}
+        onOk={() => setCreateProjectModalOpen(false)}
+        onClose={() => setCreateProjectModalOpen(false)}
+      />
+      <CreateModal
+        modalName='添加标签'
+        open={createTagModalOpen}
+        onOk={() => setCreateTagModalOpen(false)}
+        onClose={() => setCreateTagModalOpen(false)}
+      />
+    </>
   );
 };
 

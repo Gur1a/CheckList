@@ -42,9 +42,9 @@ export class ProjectService {
   /**
    * 创建新项目
    */
-  static async create(projectData: CreateProjectData): Promise<ApiResponse<Project[]>> {
+  static async create(projectData: CreateProjectData): Promise<ApiResponse<Project>> {
     try {
-      const response = await apiClient.post<Project[]>(
+      const response = await apiClient.post<Project>(
         API_ENDPOINTS.PROJECTS.CREATE,
         projectData
       );

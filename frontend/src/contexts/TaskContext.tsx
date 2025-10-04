@@ -41,7 +41,7 @@ export interface TaskContextType extends TaskState {
   
   // 状态管理
   setCurrentTask: (task: Task | null) => void;
-  setProjects: (projects: Project[]) => void
+  setUserProjects: (projects: Project[]) => void
   setFilter: (filter: Partial<TaskState['filter']>) => void;
   setTasks: (tasks: Task[]) => void;
   setSorting: (sortBy: TaskState['sortBy'], sortOrder: TaskState['sortOrder']) => void;
@@ -284,7 +284,7 @@ const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
   
             if (projectsData.data) {
               console.log("加载项目成功:", projectsData.data);
-              setProjects(projectsData.data?.items || []);
+              setUserProjects(projectsData.data?.items || []);
             }
   
             if (tagsData.data) {
@@ -517,7 +517,7 @@ const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
   };
 
   // 设置项目列表
-  const setProjects = (projects: Project[]): void => {
+  const setUserProjects = (projects: Project[]): void => {
     dispatch({ type: 'SET_USER_PROJECTS', payload: projects });
   };
 
@@ -653,7 +653,7 @@ const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
     setCurrentTask,
     setFilter,
     setSorting,
-    setProjects,
+    setUserProjects,
     setTasks,
     clearError,
     clearTasks,

@@ -29,14 +29,13 @@ const CalendarPage: React.FC = () => {
   useEffect(() => {
     if (tasks) {
       const calendarEvents: CalendarEvent[] = tasks
-        .filter(task => task.dueDate) // 只显示有截止日期的任务
+        .filter(task => task.dueDate && task.startDate) // 只显示有截止日期的任务
         .map(task => ({
           id: task.id,
           title: task.title,
+          allDay: task.startDate == null && task.dueDate == null ? true : false,
           start: new Date(task.startDate!),
           end: new Date(task.dueDate!),
-          color: "#d3d3d3",
-          allDay: false,
           extendedProps: {
             priority: task.priority,
             status: task.status

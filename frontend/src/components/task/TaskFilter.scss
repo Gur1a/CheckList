@@ -48,6 +48,34 @@
     
 }
 
+// 清单菜单项样式 - hover时显示添加按钮
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.add-button {
+    background-color: transparent;
+    color: #94a3b8; 
+    border: none; 
+    padding: 2px 8px; 
+    cursor: pointer;
+    font-size: 16px;
+    opacity: 0; // 默认隐藏
+    transition: opacity 0.2s ease; // 添加淡入淡出效果
+
+    &:hover {
+        color: #717d8d; // 鼠标悬停时背景颜色
+    }
+}
+
+// 当鼠标悬停在菜单项上时显示按钮
+.ant-menu-submenu-title:hover .add-button {
+    opacity: 1; // hover时显示
+}
+
 // 任务列表部分
 .task-list-section {
     width: 100%;

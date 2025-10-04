@@ -10,8 +10,8 @@ import { bottom } from "@popperjs/core";
 
 interface TaskTimePickerProps {
    
-    onConfirm: (selectedDate: Date | [Date, Date] | null) => Promise<void>;
-    onCancel?: () => void;
+    onConfirm: (dueDate: Date|null, startDate?: Date|null) => Promise<void>;
+    onCancel: () => void;
 }
 
 const RangePicker = DatePicker;
@@ -23,24 +23,18 @@ export const TaskTimePicker: React.FC<TaskTimePickerProps> = ({ onConfirm, onCan
     const [selectedStartTime, setSelectedStartTime] = useState<Dayjs | null>(null);
     const [selectedEndTime, setSelectedEndTime] = useState<Dayjs | null>(null);
     const [form] = Form.useForm();
-    
-
-    const handleDateChange = (date: Date | null, type : string) => {
-        if(type === 'st') setSelectedStartDate(date)
-        else setSelectedDueDate(date)        
-    };
 
     const handleConfirm = () => {
         if(mode === 'date'){
             onConfirm(mergeDateAndTime(selectedStartDate, selectedStartTime))
         } else {
             if(selectedStartDate && selectedDueDate && selectedStartTime && selectedEndTime)
-            onConfirm((
+            onConfirm(
+                mergeDateAndTime(selectedDueDate, selectedEndTime),
                 mergeDateAndTime(selectedStartDate, selectedStartTime), 
-                mergeDateAndTime(selectedDueDate, selectedEndTime))
             )
         }
-        onCancel
+        onCancel()
     };
 
     const handleClear = () => {
@@ -48,11 +42,6 @@ export const TaskTimePicker: React.FC<TaskTimePickerProps> = ({ onConfirm, onCan
         setSelectedDueDate(null);
         form.resetFields();
     };
-
-    const onTimeChange:TimePickerProps["onChange"] = (time) => {
-        const timeValue = time
-        
-    }
 
     return (
         <Modal

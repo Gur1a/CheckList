@@ -77,12 +77,14 @@ const TaskDetail: React.FC = () => {
   }
 
   // 处理日期设置
-  const handleSetDate = async (date: Date | [Date, Date] | null) => {
-    if(isArray(date))
-      await updateTask(currentTask.id, {startDate: date[0], dueDate: date[1]})
+  const handleSetDate = async (dueDate: Date | null, startDate?: Date | null) => {
+    if(startDate && dueDate) {
+      console.log("日期范围")
+      await updateTask(currentTask.id, {startDate: startDate, dueDate: dueDate})
+    }
     else{
-      if(date) {
-        await updateTask(currentTask.id, {dueDate: date})
+      if(dueDate) {
+        await updateTask(currentTask.id, {dueDate: dueDate})
       }
     }
   }

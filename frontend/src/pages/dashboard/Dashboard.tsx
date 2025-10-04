@@ -8,14 +8,8 @@ const Dashboard: React.FC = () => {
   const [inProgress, setInProgress] = useState(0)
   const [completed, setCompleted] = useState(0)
 
+  const {tasks} = useTask()
 
-
-  const {tasks, getTasks} = useTask()
-  // 只在组件挂载时获取一次任务
-  useEffect(() => {
-    getTasks()
-  }, []) // 空依赖数组确保只在组件挂载时执行一次
-  
   // 当tasks变化时更新统计数据
   useEffect(() => {
     calTasksState()
