@@ -19,6 +19,12 @@ const TaskList: React.FC = () => {
     currentTask,
     setCurrentTask,
   } = useTask();
+  
+  // 添加调试日志
+  useEffect(() => {
+    console.log('TaskList - tasks updated:', tasks);
+  }, [tasks]);
+  
   const [isEdit, setIsEdit] = useState(false);
   const [position, setPosition] = useState({ left: 0, top: 0 });
   const [filterTasks, setFilterTasks] = useState<Task[]>(tasks);

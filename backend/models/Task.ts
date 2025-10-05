@@ -56,6 +56,7 @@ interface TaskAttributes {
   description?: string;
   status: TaskStatus;
   priority: TaskPriority;
+  color?: string;
   dueDate?: Date;
   reminder?: Date;
   startDate?: Date;
@@ -91,6 +92,7 @@ class Task extends Model<TaskAttributes, TaskCreationAttributes> implements Task
   public description?: string;
   public status!: TaskStatus;
   public priority!: TaskPriority;
+  public color?: string;
   public dueDate?: Date;
   public reminder?: Date;
   public startDate?: Date;
@@ -230,6 +232,10 @@ const initTaskModel = (sequelize: Sequelize): typeof Task => {
     priority: {
       type: DataTypes.ENUM('low', 'medium', 'high', 'urgent', 'none'),
       defaultValue: TaskPriority.MEDIUM
+    },
+    color: {
+      type: DataTypes.STRING(7),
+      defaultValue: '#4772fa'
     },
     dueDate: {
       type: DataTypes.DATE,
@@ -388,6 +394,13 @@ const initTaskModel = (sequelize: Sequelize): typeof Task => {
           } else if (task.status === TaskStatus.ARCHIVED && !task.archivedAt) {
             task.archivedAt = new Date();
           }
+        }
+      },
+      // 创建任务时设置默认颜色
+      beforeCreate: async (task: Task) => {
+        if (!task.color) {
+          const defaultColors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFBE0B', '#FB5607', '#8338EC', '#3A86FF'];
+          task.color = defaultColors[Math.floor(Math.random() * defaultColors.length)];
         }
       }
     }

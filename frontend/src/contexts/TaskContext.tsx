@@ -137,16 +137,23 @@ const taskReducer = (state: TaskState, action: TaskAction): TaskState => {
       };
     
     case 'UPDATE_TASK':
+      console.log('Reducer - UPDATE_TASK:', action.payload);
+      const updatedTasks = state.tasks.map(task => 
+        task.id === action.payload.id 
+          ? { ...task, ...action.payload.updates }
+          : task
+      );
+      console.log('Reducer - updated tasks:', updatedTasks);
+      
+      const updatedCurrentTask = state.currentTask?.id === action.payload.id 
+        ? { ...state.currentTask, ...action.payload.updates }
+        : state.currentTask;
+      console.log('Reducer - updated currentTask:', updatedCurrentTask);
+      
       return {
         ...state,
-        tasks: state.tasks.map(task => 
-          task.id === action.payload.id 
-            ? { ...task, ...action.payload.updates }
-            : task
-        ),
-        currentTask: state.currentTask?.id === action.payload.id 
-          ? { ...state.currentTask, ...action.payload.updates }
-          : state.currentTask,
+        tasks: updatedTasks,
+        currentTask: updatedCurrentTask,
         loading: false,
         error: null
       };
@@ -345,20 +352,25 @@ const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
     
     try {
       console.log('context-updateTask', taskId, updates);
+      
+      // 先调用API更新任务
       const response = await TaskService.update(taskId, updates);
       
+      // 如果API调用成功，再更新本地状态
       if (response.success && response.data) {
+        console.log('context-updateTask success, updating local state with:', response.data);
         dispatch({ 
           type: 'UPDATE_TASK', 
           payload: { 
             id: taskId, 
-            updates: response.data
+            updates: response.data  // 使用API返回的数据而不是传入的updates
           }
         });
       } else {
         dispatch({ type: 'SET_ERROR', payload: response.message || '更新任务失败' });
       }
     } catch (error) {
+      console.error('context-updateTask error:', error);
       dispatch({ type: 'SET_ERROR', payload: handleError(error) });
     }
   };

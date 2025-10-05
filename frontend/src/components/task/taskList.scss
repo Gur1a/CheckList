@@ -91,6 +91,7 @@ $border-radius-full: 9999px;
   border-bottom: 1px solid $color-border-light;
   transition: background-color 0.2s;
   cursor: pointer;
+  position: relative; // 添加相对定位以便颜色指示器正确定位
   
   &:hover {
     background-color: #e1eaf3;

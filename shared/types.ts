@@ -71,6 +71,7 @@ export interface Task {
   description?: string;
   status: TaskStatus;
   priority: TaskPriority;
+  color?: string;
   startDate?: Date;
   dueDate?: Date;
   reminder?: Date;

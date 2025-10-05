@@ -17,6 +17,7 @@ const TaskOrganizer: React.FC = () => {
   const {
     filter,
     setFilter,
+    setTasks,
     getTasks,
     createTask,
   } = useTask();
@@ -41,21 +42,26 @@ const TaskOrganizer: React.FC = () => {
   // 处理快速添加任务（通过Enter键）
   const handleQuickAddTask = useCallback(async () => {
     if (tempTaskTitle.trim()) {
-      const newTask = {
-        title: tempTaskTitle.trim() ,
+      // 定义默认颜色数组
+      const defaultColors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFBE0B', '#FB5607', '#8338EC', '#3A86FF'];
+      // 随机选择一个颜色
+      const randomColor = defaultColors[Math.floor(Math.random() * defaultColors.length)];
+      
+      const newTask: CreateTaskData = {
+        title: tempTaskTitle.trim(),
         description: '',
         status: TaskStatus.TODO,
         priority: TaskPriority.NONE,
+        color: randomColor, // 添加随机颜色
         project: user?.defaultProjectId || '',
         tags: [],
         createdBy: user?.id || '',
       }
       await createTask(newTask);
       setTempTaskTitle(''); // 清空输入框
-      getTasks(); // 重新加载任务列表
+      // 不需要手动更新tasks状态，因为createTask函数会通过context自动更新
     }
-  }, [tempTaskTitle, createTask]);
-
+  }, [tempTaskTitle, createTask, user]);
 
   // 处理搜索
   const handleSearch = useCallback((query: string) => {

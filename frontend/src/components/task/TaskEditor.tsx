@@ -65,31 +65,6 @@ const TaskEditor: React.FC<TaskEditorProps> = ({
         }
     }, [setUserTags]);
 
-    // 处理标签添加
-    const handleTagAdd = useCallback(async (selectedTagIds: string[]) => {
-        try {
-            // 添加的标签
-            const addedTags = selectedTagIds.filter(tagId => !taskTags.includes(tagId));
-            // 处理添加操作
-            for (const tagId of addedTags) {
-                await TagService.addTagToTask(taskId, tagId);
-            }
-
-            // 获取更新后的标签列表并直接更新任务标签映射
-            const response = await TagService.getTagsForTask(taskId);
-            if(response.data) {
-                updateTaskTags(taskId, response.data);
-            }
-
-            // 更新本地状态
-            setTaskTags(selectedTagIds);
-            // 关闭标签选择器
-            setShowTagAdder(false);
-        } catch (error) {
-            console.error('更新任务标签失败:', error);
-        }
-    }, [taskId, taskTags, updateTaskTags]);
-
     if(!isOpen) {
         return null;
     }

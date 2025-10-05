@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
+import { useAuth } from '../../hooks/useAuth';
 import { useTask } from '../../hooks/useTask';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -6,6 +7,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import '../../styles/CalendarPage.css';
+import TaskService from '@/services/taskService';
 
 // 类型定义
 interface CalendarEvent {
@@ -13,6 +15,8 @@ interface CalendarEvent {
   title: string;
   start: Date;
   end: Date;
+  startStr?: string;
+  endStr?: string;
   allDay: boolean;
   extendedProps: {
     priority: string;
@@ -21,7 +25,8 @@ interface CalendarEvent {
 }
 
 const CalendarPage: React.FC = () => {
-  const { tasks, loading } = useTask();
+  const { tasks, loading, setCurrentTask, updateTask, setTasks} = useTask();
+  const {user} = useAuth();
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [currentView, setCurrentView] = useState<'dayGridMonth' | 'timeGridWeek' | 'timeGridDay' | 'listYear'>('dayGridMonth');
 
@@ -36,6 +41,11 @@ const CalendarPage: React.FC = () => {
           allDay: task.startDate == null && task.dueDate == null ? true : false,
           start: new Date(task.startDate!),
           end: new Date(task.dueDate!),
+          editable: true, //可拖拽
+          startEditable: true,
+          borderColor: task.color,
+          backgroundColor: task.color,
+          durationEditable: true,
           extendedProps: {
             priority: task.priority,
             status: task.status
@@ -51,13 +61,38 @@ const CalendarPage: React.FC = () => {
   };
 
   // 处理日期点击
-  const handleDateClick = (arg: any) => {
-    console.log('点击日期:', arg.date);
+  const handleDateClick = async (arg: any) => {
+    
   };
 
   // 处理事件点击
-  const handleEventClick = (arg: any) => {
-    console.log('点击事件:', arg.event);
+  const handleEventClick = async (arg: any) => {
+     try {
+      const cur = (await TaskService.getById(arg.event.id)).data;
+      if(cur) setCurrentTask(cur);
+    } catch (error) {
+      console.error('获取任务失败:', error);
+    }
+  };
+
+  // 处理事件拖拽停止
+  const handleEventDragStop = async (arg: any) => {
+    console.log('任务拖拽停止:', arg.event);
+    try {
+      // 使用 updateTask 更新任务，这会同时更新 API 和全局状态
+      await TaskService.update(arg.event.id, { 
+        startDate: arg.event.start,
+        dueDate: arg.event.end
+      });
+      
+      
+      if(user) {
+        const data = await TaskService.getByUserId(user?.id);
+        if(data.data) setTasks(data.data);
+      }
+    } catch (error) {
+      console.error('更新任务失败:', error);
+    }
   };
 
   if (loading) {
@@ -70,12 +105,9 @@ const CalendarPage: React.FC = () => {
 
   return (
     <div className="calendar-page">
-      <div className="calendar-header">
-        <h1>任务日历</h1>
-      </div>
-      
       <div className="calendar-content">
         <FullCalendar
+          themeSystem='bootstrap5'
           plugins={[dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin]}
           initialView={currentView}
           events={events}
@@ -101,7 +133,8 @@ const CalendarPage: React.FC = () => {
           }}
           dateClick={handleDateClick}
           eventClick={handleEventClick}
-          height="auto"
+          eventDrop={handleEventDragStop}
+          height="100%"
           aspectRatio={2}
         />
       </div>

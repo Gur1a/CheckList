@@ -9,6 +9,7 @@ export interface CreateTaskData {
   description?: string;
   status: TaskStatus;
   priority: TaskPriority;
+  color?: string;
   dueDate?: Date;
   reminder?: Date;
   tags: string[];
@@ -24,6 +25,7 @@ export interface UpdateTaskData {
   description?: string;
   status?: TaskStatus;
   priority?: TaskPriority;
+  color?: string;
   dueDate?: Date;
   startDate?: Date;
   reminder?: Date;
@@ -164,15 +166,18 @@ export class TaskService {
    */
   static async update(taskId: string, updateData: UpdateTaskData): Promise<ApiResponse<Task>> {
     try {
+      console.log('TaskService.update - sending data:', updateData);
       const response = await apiClient.put<Task>(
         API_ENDPOINTS.TASKS.UPDATE.replace(':id', taskId),
         {
           ...updateData,
           // 日期格式化
-          dueDate: updateData.dueDate?.toISOString(),
-          reminder: updateData.reminder?.toISOString()
+          startDate: updateData.startDate instanceof Date ? updateData.startDate.toISOString() : updateData.startDate,
+          dueDate: updateData.dueDate instanceof Date ? updateData.dueDate.toISOString() : updateData.dueDate,
+          reminder: updateData.reminder instanceof Date ? updateData.reminder.toISOString() : updateData.reminder
         }
       );
+      console.log('TaskService.update - received response:', response);
       return response;
     } catch (error) {
       console.error('更新任务失败:', error);
@@ -207,8 +212,9 @@ export class TaskService {
           updates: {
             ...bulkData.updates,
             // 日期格式化
-            dueDate: bulkData.updates.dueDate?.toISOString(),
-            reminder: bulkData.updates.reminder?.toISOString()
+            startDate: bulkData.updates.startDate instanceof Date ? bulkData.updates.startDate.toISOString() : bulkData.updates.startDate,
+            dueDate: bulkData.updates.dueDate instanceof Date ? bulkData.updates.dueDate.toISOString() : bulkData.updates.dueDate,
+            reminder: bulkData.updates.reminder instanceof Date ? bulkData.updates.reminder.toISOString() : bulkData.updates.reminder
           }
         }
       );

@@ -107,11 +107,15 @@ export class TaskController {
     const taskData = req.body;
     const userId = (req as any).user?.id;
 
+    console.log('TaskController.updateTask - received data:', taskData);
+
     if (!userId) {
       throw new AppError('用户未认证', 401, 'UNAUTHORIZED');
     }
 
     const result = await this.taskService.updateTask(parseInt(id), taskData, userId);
+    
+    console.log('TaskController.updateTask - result:', result);
     
     res.json({
       success: true,

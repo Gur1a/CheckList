@@ -3,7 +3,6 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 // import MainLayout from '../layout/MainLayout';
 import TaskPageLayout from '@/layout/Layout';
-import { TaskProvider } from '../contexts/TaskContext';
 
 // 懒加载组件
 const Login = React.lazy(() => import('../pages/auth/Login'));
@@ -36,9 +35,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
   }
   
   return isAuthenticated ? (
-    <TaskProvider>
-      <TaskPageLayout>{children}</TaskPageLayout>
-    </TaskProvider>
+    <TaskPageLayout>{children}</TaskPageLayout>
   ) : (
     <Navigate to="/login" replace />
   );
